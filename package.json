@@ -24,8 +24,7 @@
     "extends": "@antfu"
   },
   "stackblitz": {
-    "installDependencies": false,
-    "startCommand": "pnpm install && pnpm run test:ui"
+    "startCommand": "npm test:ui"
   },
   "prettier": {
     "printWidth": 120,
