@@ -1,0 +1,6 @@
+export * from './has-row-value'
+export * from './has-row-winner'
+export * from './has-state-winner'
+export * from './is-row-potential'
+export * from './state-factory'
+export * from './transpose-array'
