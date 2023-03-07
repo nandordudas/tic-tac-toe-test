@@ -23,13 +23,8 @@ main()
 function main(): void {
   const result = getResult()
 
-  if (!result.ok) {
-    const errorMessage = result.error instanceof Error
-      ? result.error
-      : new Error(`${result.error}`)
-
-    return console.error(errorMessage.message)
-  }
+  if (!result.ok)
+    return console.error(result.error.message)
 
   // eslint-disable-next-line no-console
   console.log(result.value)
