@@ -2,15 +2,7 @@ import { GameState } from './game-state'
 import { UserSign } from './types'
 import { makeSafe } from './utils'
 
-const result = makeSafe(main)
-
-if (!result.ok) {
-  const errorMessage = result.error instanceof Error ? result.error : new Error(`${result.error}`)
-
-  console.error(errorMessage.message)
-}
-
-function main(): string {
+const getResult = makeSafe((): string => {
   const gameState = new GameState()
   const userSign: UserSign = UserSign.O
 
@@ -20,9 +12,25 @@ function main(): string {
   gameState.setField(UserSign.X, 1, 1)
   gameState.setField(UserSign.O, 0, 2)
 
-  if (gameState.hasWinner(userSign, 3)) {
+  if (gameState.hasWinner(userSign, 3))
     return `The winner is ${userSign}`
-  }
 
   return 'No winner yet'
+})
+
+main()
+
+function main(): void {
+  const result = getResult()
+
+  if (!result.ok) {
+    const errorMessage = result.error instanceof Error
+      ? result.error
+      : new Error(`${result.error}`)
+
+    return console.error(errorMessage.message)
+  }
+
+  // eslint-disable-next-line no-console
+  console.log(result.value)
 }
