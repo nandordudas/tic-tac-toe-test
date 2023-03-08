@@ -10,15 +10,12 @@ const state = [
 ] as unknown as Field[][]
 
 describe('stateFactory', () => {
-  // Has better performance, ~1.5x faster than 'get diagonals with double transpose'
+  // Has better performance, ~2x faster than 'get diagonals with double transpose'
   bench('get diagonals with reversed mapping', () => {
-    state
-      .map((row, index) => row.at(row.length - 1 - index)! || null)
-      .map((row, index) => row.at(index)!)
+    state.map((row, index) => row.at(row.length - 1 - index)! || null)
   })
 
   bench('get diagonals with double transpose', () => {
-    transposeArray(transposeArray(state))
-      .map((row, index) => row.at(index)!)
+    transposeArray(transposeArray(state).map(row => row.reverse()))
   })
 })
